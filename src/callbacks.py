@@ -6,7 +6,7 @@ import wandb
 def domain_eval_callback(trainer):
         
     log_dir = trainer.args.project + '/' + trainer.args.name + '/'
-    args = dict(data=trainer.cmd_args.test_ds, split='test', batch=9, imgsz=256, 
+    args = dict(data=trainer.cmd_args.target_data, split='test', batch=9, imgsz=256, 
                 project=log_dir, name='TargetResultsLatest', exist_ok=True, save=True, plots=True)
     validator = DetectionValidator(args=args)
     model = deepcopy(trainer.model)
@@ -30,10 +30,8 @@ def domain_eval_callback(trainer):
         all_results[f'TargetResults/{class_name}_mAP50'] = class_50
         all_results[f'TargetResults/{class_name}_mAP50-95'] = class_95
     
-    if trainer.cmd_args.wb: trainer.wandb_run.log(all_results, step=trainer.epoch + 1)
-
-    fs = glob.glob(f'{log_dir}/TargetResultsLatest/*')
-    for f in fs:
-        name = f.split('/')[-1].split('.')[0]
-        if trainer.cmd_args.wb: trainer.wandb_run.log({f"TargetResultsPlots/{name}": wandb.Image(f)},  step=trainer.epoch + 1)
+    # fs = glob.glob(f'{log_dir}/TargetResultsLatest/*')
+    # for f in fs:
+    #     name = f.split('/')[-1].split('.')[0]
+    #     if trainer.cmd_args.wb: trainer.wandb_run.log({f"TargetResultsPlots/{name}": wandb.Image(f)},  step=trainer.epoch + 1)
         

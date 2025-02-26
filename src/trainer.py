@@ -14,13 +14,11 @@ import dill
 class YOCOTrainer(DetectionTrainer):
     def __init__(self, 
                  overrides=None, 
-                 args=None, 
-                 wandb_run=None):
+                 args=None):
         super().__init__(overrides=overrides)
         self.cmd_args = args
-        self.wandb_run = wandb_run
         self.yoco = not args.yolo
-        self.target_yaml = args.test_ds
+        self.target_yaml = args.target_data
         self.fm = not self.cmd_args.no_pc
     
     # Model custom implements loss function
@@ -62,9 +60,9 @@ class YOCOTrainer(DetectionTrainer):
         self.loss_names = ['box', 'cls', 'dfl']
         if self.yoco:
             # self.loss_names = ('box_loss', 'cls_loss', 'dfl_loss', 'Dimg_loss', 'DinstL_loss', 'DinstM_loss', 'DinstS_loss')
-            self.loss_names += ['Dbf', 'Dlf', 'Dmf', 'Dsf']
+            self.loss_names += ['bf', 'lf', 'mf', 'sf']
             if self.fm:
-                self.loss_names += ['fm']            
+                self.loss_names += ['pc']            
         prog_str = ("\n" + "%11s" * (4 + len(self.loss_names))) % (
             "Epoch",
             "GPU_mem",

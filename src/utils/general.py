@@ -5,8 +5,7 @@ def get_input_args(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('--arch', help='YOLO version (e.g., v3/v5/v8) and model size (n/s/m/l/x).', default='v5n')
     parser.add_argument('--logdir', type=str, default='../logs/', help='Logging directory for model weights, tensorboard, WandB, etc.')
-    parser.add_argument('--wb', default=False, action=argparse.BooleanOptionalAction, help='Enable WandB logging.')
-    parser.add_argument('--exp', type=str, default='', help='Experiment name to append to wandb save string.')
+    parser.add_argument('--exp', type=str, default='', help='Experiment name.')
     parser.add_argument('--pretrained', default='', type=str, help='Weights to load before training.')
 
 

@@ -40,7 +40,13 @@ class DomainDataset(Dataset):
         source_img_path = source_data['train']
         target_data = check_det_dataset(target_yaml)
         target_img_path = target_data['train']
-                
+        
+        if isinstance(source_img_path, list):
+            source_img_path = source_img_path[0]
+            
+        if isinstance(target_img_path, list):
+            target_img_path = target_img_path[0]
+                        
         self.transform = classify_augmentations(
                             size=args.imgsz,
                             hflip=args.fliplr,

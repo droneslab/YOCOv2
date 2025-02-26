@@ -19,8 +19,8 @@ class YOCOLoss:
         self.model = model
         self.da_type = cmd_args.da_type
         self.da_loss = cmd_args.da_loss
-        self.fm = cmd_args.fm
-        
+        self.fm = not self.cmd_args.no_pc
+
         self.detection_loss = v8DetectionLoss(model)
         if self.fm:
             self.l1 = torch.nn.L1Loss()
@@ -29,7 +29,7 @@ class YOCOLoss:
             from domain_data import DomainDataset
             from torch.utils.data import DataLoader
                         
-            self.domain_ds = DomainDataset(args.batch, self.cmd_args.train_ds, self.cmd_args.test_ds, args)
+            self.domain_ds = DomainDataset(args.batch, self.cmd_args.source_data, self.cmd_args.target_data, args)
             self.domain_dl = DataLoader(self.domain_ds, batch_sampler=self.domain_ds.sampler)
 
             # Model that comes in is a custom YOLO Model instance, regular torch sequential is under `model.model`
@@ -86,9 +86,9 @@ class YOCOLoss:
             self.Dbf = channel_disc(self.feat_depths[self.yolo_ver][self.yolo_size]['Bf'])
 
             # Instance Adaptation
-            if self.da_type == 'roi' or self.da_type=='tk':
+            if self.da_type == 'roi' or self.da_type=='sff':
                 self.inst_loss = ROILoss(loss_type=self.da_loss, 
-                                        tk=True if self.da_type=='tk' else False,
+                                        tk=True if self.da_type=='sff' else False,
                                         lfc=self.feat_depths[self.yolo_ver][self.yolo_size]['Lf'],
                                         mfc=self.feat_depths[self.yolo_ver][self.yolo_size]['Mf'],
                                         sfc=self.feat_depths[self.yolo_ver][self.yolo_size]['Sf'])
