@@ -39,6 +39,5 @@ Other selectable training parameters:
 * `--no-pc`: Disable perceptual consistency regularization.
 * `--qual`: Generate detection plots on target data.
 * `--logdir`: Logging directory for model weights, tensorboard, WandB, etc.
-* `--wb`: Enable WandB logging.
 * `--exp`: Experiment name to append to the logging string.
 * `--pretrained`: Weights to load before training.
