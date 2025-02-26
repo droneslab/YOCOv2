@@ -1,6 +1,6 @@
 # You Only Crash Once v2
 
-### [Paper Link](https://arxiv.org/abs/2501.13725)
+## [Paper Link](https://arxiv.org/abs/2501.13725) | [Lunar Data (64 px/deg)](https://huggingface.co/datasets/tbchase/yoco_moon_64pxdeg/blob/main/moon64.tar.gz) | [Lunar Data (100 m/px)](https://huggingface.co/datasets/tbchase/yoco_moon_100mpx/blob/main/moon100.tar.gz)
 
 Open source release of *You Only Crash Once v2* (YOCO), a domain adaptative approach to planetary, lunar, and small body surface terrain landmark detection built on top of the [ultralytics](https://github.com/ultralytics/ultralytics) object detection library.
 
@@ -10,7 +10,7 @@ This repository was tested using Ubuntu 20.04 and Python 3.10, but should be app
 pip install -r requirements.txt
 ```
 ## Dataset Format
-YOCO uses the ultralytics format for training and testing datasets, integrated as `yaml` files in the `datasets/` directory. Please refer to their [documentation](https://docs.ultralytics.com/datasets/detect/) for more details on how to configure your data. Example config files are included for convenience.
+YOCO uses the ultralytics format for training and testing datasets, integrated as `yaml` files in the `datasets/` directory. Please refer to their [documentation](https://docs.ultralytics.com/datasets/detect/) for more details on how to configure your data. Example config files are included for convenience. Properly formatted datasets for lunar crater detection can be found at the links above, for 64 pixel-per-degree and 100 meter-per-pixel resolutions.
 
 ## Training a YOCO Model
 YOCO can be trained using the default parameters by executing
