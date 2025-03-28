@@ -28,6 +28,9 @@ class YOCOTrainer(DetectionTrainer):
             model.load(weights)
         return model
     
+    def final_eval(self):
+        pass
+    
     def save_model(self):
         """Save model training checkpoints with additional metadata."""
         import pandas as pd  # scope for faster startup
